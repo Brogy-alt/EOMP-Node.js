@@ -3,3 +3,49 @@ EOMP-Node.js
 Backend - Brogan Gys
 
 Frontend - Faeez Miller
+
+
+
+// To login in user :
+
+// you need the users email and password(not hash password)
+
+// to use put :
+
+// you need to add password (not hash password) and the row that needs  to be changed
+
+ {
+            "userID": 1,
+            "firstName": "Imraan",
+            "lastName": "Bernsken",
+            "cellphoneNumber": "0681278921",
+            "emailAdd": "imraanbernksen@gmail.com",
+            "userPass": "$2b$15$jOIMIXOHLAzLNMvfIiw0ru3FKohYKgkpnQxoT1ir2F1..j.liPleG",
+            "userRole": "User",
+            "userProfile": "https://i.postimg.cc/pTLmhdpj/placeholder-person.jpg"
+        },
+        {
+            "userID": 2,
+            "firstName": "Brogan",
+            "lastName": "Gys",
+            "cellphoneNumber": "06877378921",
+            "emailAdd": "brogangys@gmail.com",
+            "userPass": "$2b$15$v.t0kGH06lLl1K2gbIhbEev8SU3vMY/fd6QUPMt4WLNg/0yr.UvqG",
+            "userRole": "User",
+            "userProfile": "https://i.postimg.cc/pTLmhdpj/placeholder-person.jpg"
+        }
+    ]
+}
+
+
+product template
+
+{
+    "productId" : 1,
+    "prodName" : "Makeshift",
+    "prodGenre" : "Drum & Bass",
+    "prodDescription" : "Dreamy, Busy & Franatic",
+    "prodArtist" : "Deem",
+    "prodQuantity": 1,
+    "imgURL": "https://i.postimg.cc/2jbC0Kdb/300x300-1.jpg"
+}

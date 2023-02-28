@@ -23,11 +23,16 @@ route.post('/login', bodyParser.json(), (req, res)=>{
     user.login(req, res);
 })
 // Retrieve all users
-route.get('/users', (req, res)=>{
+route.get('/users',bodyParser.json(), (req, res)=>{
     user.fetchUsers(req, res);
 });
+
+//Retrive One User
+route.get('/user/:id',bodyParser.json(), (req, res)=>{
+    user.fetchUser(req, res);
+}) 
 // Update
-route.put('/user/userID',bodyParser.json(), (req, res)=>{
+route.put('/user/:id',bodyParser.json(), (req, res)=>{
     user.updateUser(req, res);
 });
 // Register
@@ -35,7 +40,7 @@ route.post('/register', bodyParser.json(), (req, res)=> {
     user.createUser(req, res);
 })
 // Delete
-route.delete('/user/userID', (req, res)=>{
+route.delete('/user/:id', (req, res)=>{
     user.deleteUser(req, res);
 });
 
@@ -51,9 +56,9 @@ route.get('/product/:id',
     product.fetchProduct(req, res);
 })
 // Add a new product
-route.post('/product', 
-bodyParser.json(), 
-(req, res)=> {
+route.post('/product', bodyParser.json(), (req, res)=> {
+    // use console.log if err occurs
+    // console.log(req.body);
     product.addProduct(req, res);
 })
 // Update a product

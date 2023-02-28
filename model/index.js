@@ -54,14 +54,10 @@ class User {
              }
 
        })
- }
- fetchUsers(req, res) {
-    const strQry =
-    `
-    SELECT userID, firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile,
-    FROM Users;
-    `;
-    //db
+    }
+ fetchUsers(req, res) { 
+    const strQry = `SELECT userID, firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile
+    FROM Users;`;
     db.query(strQry, (err, data)=>{
         if(err) throw err;
         else res.status(200).json(
@@ -69,14 +65,8 @@ class User {
     })
 }
 fetchUser(req, res) {
-    const strQry =
-    `
-    SELECT userID, firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile, 
-    FROM Users
-    WHERE userID = ?;
-    `;
-    //db
-    db.query(strQry,[req.params.user],
+    
+    db.query(`SELECT userID, firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile FROM Users WHERE userID = ?`,[req.params.id],
         (err, data)=>{
         if(err) throw err;
         else res.status(200).json(
@@ -126,7 +116,7 @@ updateUser(req, res) {
     WHERE userID = ?;
     `;
     //db
-    db.query(strQry,[data, req.params.userID],
+    db.query(strQry,[data, req.params.id],
         (err)=>{
         if(err) throw err;
         res.status(200).json( {msg:
@@ -140,7 +130,7 @@ deleteUser(req, res) {
     WHERE userID = ?;
     `;
     //db
-    db.query(strQry,[req.params.userID],
+    db.query(strQry,[req.params.id],
         (err)=>{
         if(err) throw err;
         res.status(200).json( {msg:
@@ -152,32 +142,32 @@ deleteUser(req, res) {
 // Product
 class Product {
     fetchProducts(req, res) {
-        const strQry = `SELECT productId, prodGenre, prodDescription,
-        prodBpm, imgURL
+        const strQry = `SELECT productId, prodName, prodGenre, prodDescription, prodArtist,
+        prodQuantity, imgURL
         FROM Products;`;
         db.query(strQry, (err, results)=> {
             if(err) throw err;
             res.status(200).json({results: results})
         });
     }
-    fetchProduct(req, res) {
-        const strQry = `SELECT userID, prodGenre, prodDescription,
-        prodBpm, imgURL
+    fetchProduct(req, res) { 
+        const strQry = `SELECT productId, prodName, prodGenre, prodDescription, prodArtist,
+        prodQuantity, imgURL
         FROM Products
         WHERE productID = ?;`;
-        db.query(strQry, [req.params.userID], (err, results)=> {
+        db.query(strQry, [req.params.id], (err, results)=> {
             if(err) throw err;
             res.status(200).json({results: results})
         });
     }
     addProduct(req, res) {
+        const data = req.body;
         const strQry =
         `
         INSERT INTO Products
         SET ?;
         `;
-        db.query(strQry,[req.body],
-            (err)=> {
+        db.query(strQry,[data],(err)=> {
                 if(err){
                     res.status(400).json({err: "Unable to insert a new record."});
                 }else {
@@ -193,7 +183,7 @@ class Product {
         SET ?
         WHERE productID = ?
         `;
-        db.query(strQry,[req.body, req.params.userID],
+        db.query(strQry,[req.body, req.params.id],
             (err)=> {
                 if(err){
                     res.status(400).json({err: "Unable to update a record."});
@@ -209,7 +199,7 @@ class Product {
         DELETE FROM Products
         WHERE productID = ?;
         `;
-        db.query(strQry,[req.params.userID], (err)=> {
+        db.query(strQry,[req.params.id], (err)=> {
             if(err) res.status(400).json({err: "The record was not found."});
             res.status(200).json({msg: "A product was deleted."});
         })
