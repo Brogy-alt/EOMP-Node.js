@@ -25,10 +25,10 @@ function verifyAToken(req,res,next) {
                 req.authenticated = true;
                 next();
             }else {
-                res.status(400).json({err: "Please register"})
+                res.status(400).json({err: "Please register to gain access"})
             }
         }else {
-            res.status(400).json({err: "Please register"})
+            res.status(400).json({err: "Please register to gain access"})
         }
     }catch(e) {
         res.status(400).json({err: e.message});
