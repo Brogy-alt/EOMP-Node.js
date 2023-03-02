@@ -13,7 +13,7 @@ class User {
         const {emailAdd, userPass} = req.body;
         const strQry =
         `
-        SELECT firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile, gender
+        SELECT firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile, gender, DATE_DEFAULT (joinDate, '%d-%m-%Y') AS joinDate
         FROM Users
         WHERE emailAdd = '${emailAdd}';
         `;
@@ -56,7 +56,7 @@ class User {
        })
     }
  fetchUsers(req, res) { 
-    const strQry = `SELECT userID, firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile, gender
+    const strQry = `SELECT userID, firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile, gender, DATE_DEFAULT (joinDate, '%d-%m-%Y') AS joinDate 
     FROM Users;`;
     db.query(strQry, (err, data)=>{
         if(err) throw err;
@@ -66,7 +66,7 @@ class User {
 }
 fetchUser(req, res) {
     
-    db.query(`SELECT userID, firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile, gender FROM Users WHERE userID = ?`,[req.params.id],
+    db.query(`SELECT userID, firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile, gender, DATE_DEFAULT (joinDate, '%d-%m-%Y') AS joinDate FROM Users WHERE userID = ?`,[req.params.id],
         (err, data)=>{
         if(err) throw err;
         else res.status(200).json(
@@ -143,21 +143,21 @@ deleteUser(req, res) {
 class Product {
     fetchProducts(req, res) {
         const strQry = `SELECT productId, prodName, prodGenre, prodDescription, prodArtist, price,
-        prodQuantity, imgURL
+        prodQuantity, imgURL, 
         FROM Products;`;
         db.query(strQry, (err, results)=> {
             if(err) throw err;
-            res.status(200).json({results: results})
+            res.status(200).json({results})
         });
     }
     fetchProduct(req, res) { 
         const strQry = `SELECT productId, prodName, prodGenre, prodDescription, prodArtist, price,
-        prodQuantity, imgURL
+        prodQuantity, imgURL, 
         FROM Products
         WHERE productID = ?;`;
         db.query(strQry, [req.params.id], (err, results)=> {
             if(err) throw err;
-            res.status(200).json({results: results})
+            res.status(200).json({results})
         });
     }
     addProduct(req, res) {
