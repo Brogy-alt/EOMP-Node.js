@@ -13,7 +13,7 @@ class User {
         const {emailAdd, userPass} = req.body;
         const strQry =
         `
-        SELECT firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile, gender, DATE_DEFAULT (joinDate, '%d-%m-%Y') AS joinDate
+        SELECT firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile, gender, DATE_FORMAT (joinDate, '%d-%m-%Y') AS joinDate
         FROM Users
         WHERE emailAdd = '${emailAdd}';
         `;
@@ -56,7 +56,7 @@ class User {
        })
     }
  fetchUsers(req, res) { 
-    const strQry = `SELECT userID, firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile, gender, DATE_DEFAULT (joinDate, '%d-%m-%Y') AS joinDate 
+    const strQry = `SELECT userID, firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile, gender, DATE_FORMAT (joinDate, '%d-%m-%Y') AS joinDate 
     FROM Users;`;
     db.query(strQry, (err, data)=>{
         if(err) throw err;
@@ -66,7 +66,7 @@ class User {
 }
 fetchUser(req, res) {
     
-    db.query(`SELECT userID, firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile, gender, DATE_DEFAULT (joinDate, '%d-%m-%Y') AS joinDate FROM Users WHERE userID = ?`,[req.params.id],
+    db.query(`SELECT userID, firstName, lastName, cellphoneNumber, emailAdd, userPass, userRole, userProfile, gender, DATE_FORMAT (joinDate, '%d-%m-%Y') AS joinDate FROM Users WHERE userID = ?`,[req.params.id],
         (err, data)=>{
         if(err) throw err;
         else res.status(200).json(
