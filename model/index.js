@@ -142,8 +142,8 @@ deleteUser(req, res) {
 // Product
 class Product {
     fetchProducts(req, res) {
-        const strQry = `SELECT productId, prodName, prodGenre, prodDescription, prodArtist, price,
-        prodQuantity, imgURL, 
+        const strQry = `SELECT productID, prodGenre, prodDescription, prodArtist, price,
+        prodQuantity, imgURL 
         FROM Products;`;
         db.query(strQry, (err, results)=> {
             if(err) throw err;
@@ -152,7 +152,7 @@ class Product {
     }
     fetchProduct(req, res) { 
         const strQry = `SELECT productId, prodName, prodGenre, prodDescription, prodArtist, price,
-        prodQuantity, imgURL, 
+        prodQuantity, imgURL
         FROM Products
         WHERE productID = ?;`;
         db.query(strQry, [req.params.id], (err, results)=> {
